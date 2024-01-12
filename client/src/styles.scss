@@ -1,0 +1,48 @@
+@import "style-guide";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+button {
+    all: unset;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+}
+
+html {
+    font-family: $font-base;
+    font-size: 62.5%;
+}
+
+body {
+    background-color: $background-3;
+    color: $font;
+    font-size: 1.6rem;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: $grid-size-desktop;
+    width: 100%;
+}
+
+.red {
+    background-color: red;
+}

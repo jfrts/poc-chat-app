@@ -1,0 +1,26 @@
+<div class="s-login">
+    <div class="login-header">
+        <img src="./assets/images/icons/logo-icon.svg" alt="Chat Angular">
+        <h3>Escolha um usuário.</h3>
+    </div>
+    <ul>
+        @for (user of users$ | async; track user.id) {
+        <li class="user">
+            <div class="personal-info">
+                <div class="avatar">
+                    <img src="./assets/images/avatars/{{user.profilePicture}}" alt="">
+                </div>
+                <span>{{ user.name }}</span>
+            </div>
+            <button (click)="upload_image_input.click()">
+                <img src="./assets/images/icons/update-image.svg" alt="Atualizar Imagem">
+            </button>
+        </li>
+        }
+    </ul>
+
+
+
+
+    <input type="file" #upload_image_input>
+</div>

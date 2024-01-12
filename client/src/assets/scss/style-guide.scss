@@ -1,0 +1,103 @@
+@import "mixins";
+
+// grid
+$grid-size-desktop: 100vw;
+
+// colors
+$shadows: #000;
+$background: #111B20;
+$background-2: #222E34;
+$background-3: #0C1317;
+$font: #FFF;
+$font-2: #A6ABAD;
+$highlight: #1B8D52;
+$tint: #88E8B6;
+$light-tint: #FBFEFC;
+$shade: #03110A;
+
+// shadows
+$main-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
+// typeface
+$font-base: 'Afacad', sans-serif;
+
+h1 {
+    font-size: 5.6rem;
+
+    @include responsive("laptop") {
+        font-size: 5.2rem;
+    }
+
+    @include responsive("tablet") {
+        font-size: 4.6rem;
+    }
+
+    @include responsive("mobile") {
+        font-size: 4rem;
+    }
+
+}
+
+h2 {
+    font-size: 4.8rem;
+
+    @include responsive("laptop") {
+        font-size: 4.4rem;
+    }
+
+    @include responsive("tablet") {
+        font-size: 3.8rem;
+    }
+
+    @include responsive("mobile") {
+        font-size: 3.2rem;
+    }
+}
+
+h3 {
+    font-size: 4rem;
+
+    @include responsive("laptop") {
+        font-size: 3.6rem;
+    }
+
+    @include responsive("tablet") {
+        font-size: 3.2rem;
+    }
+
+    @include responsive("mobile") {
+        font-size: 2.8rem;
+    }
+}
+
+h4 {
+    font-size: 3.2rem;
+
+    @include responsive("laptop") {
+        font-size: 2.8rem;
+    }
+
+    @include responsive("tablet") {
+        font-size: 2.4rem;
+    }
+
+    @include responsive("mobile") {
+        font-size: 2rem;
+    }
+}
+
+h5 {
+    font-size: 2.8rem;
+
+    @include responsive("laptop") {
+        font-size: 2.4rem;
+    }
+
+    @include responsive("tablet") {
+        font-size: 2.1rem;
+    }
+
+    @include responsive("mobile") {
+        font-size: 1.8rem;
+    }
+}
