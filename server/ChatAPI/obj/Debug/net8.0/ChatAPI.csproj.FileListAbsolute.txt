@@ -30,3 +30,4 @@ C:\Users\jfrts\Desktop\poc-chat-app\server\ChatAPI\obj\Debug\net8.0\refint\ChatA
 C:\Users\jfrts\Desktop\poc-chat-app\server\ChatAPI\obj\Debug\net8.0\ChatAPI.pdb
 C:\Users\jfrts\Desktop\poc-chat-app\server\ChatAPI\obj\Debug\net8.0\ChatAPI.genruntimeconfig.cache
 C:\Users\jfrts\Desktop\poc-chat-app\server\ChatAPI\obj\Debug\net8.0\ref\ChatAPI.dll
+C:\Users\jfrts\Desktop\poc-chat-app\server\ChatAPI\obj\Debug\net8.0\ChatAPI.sourcelink.json
