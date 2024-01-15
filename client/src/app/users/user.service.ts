@@ -9,10 +9,20 @@ import { User } from "./user.model";
 })
 export class UserService {
   private http = inject(HttpClient);
-  private endpoint = `${environment.urlApi}/users`;
+  private usersEndpoint = `${environment.urlApi}/users`;
 
   public getUsers(): Observable<User[]> {
-    const users = this.http.get<User[]>(this.endpoint);
+    const users = this.http.get<User[]>(this.usersEndpoint);
     return users;
+  }
+
+  public uploadUserImage(userId: string, image: ArrayBuffer) {
+    const blobImage = new Blob([image]);
+    const formData = new FormData();
+
+    formData.append('image', blobImage); 
+
+    const userImagesEndpoint = `${this.usersEndpoint}/${userId}/image`;
+    return this.http.put(userImagesEndpoint, formData);
   }
 }

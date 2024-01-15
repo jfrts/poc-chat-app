@@ -4,23 +4,20 @@
         <h3>Escolha um usuário.</h3>
     </div>
     <ul>
-        @for (user of users$ | async; track user.id) {
+        @for (user of users$ | async; track user.id;) {
         <li class="user">
             <div class="personal-info">
                 <div class="avatar">
-                    <img src="./assets/images/avatars/{{user.profilePicture}}" alt="">
+                    <img [src]="'./assets/images/avatars/' + user.profilePicture"
+                        [alt]="'Foto de perfil de ' + user.name">
                 </div>
                 <span>{{ user.name }}</span>
             </div>
-            <button (click)="upload_image_input.click()">
+            <button (click)="onImageButtonClicked(user.id)">
                 <img src="./assets/images/icons/update-image.svg" alt="Atualizar Imagem">
             </button>
         </li>
         }
     </ul>
-
-
-
-
-    <input type="file" #upload_image_input>
+    <input #upload_image_input (change)="onFileSelected($event)" type="file" >
 </div>
