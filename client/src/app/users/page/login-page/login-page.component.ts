@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { EMPTY, catchError, of } from 'rxjs';
 import { UserService } from '../../user.service';
 
 @Component({
@@ -10,15 +11,26 @@ import { UserService } from '../../user.service';
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
-  @ViewChild('upload_image_input', { static: true, read: ElementRef })
-  private inputFile!: ElementRef;
+
+  @ViewChild('upload_image_input', { static: true, read: ElementRef }) private inputFile!: ElementRef;
   private userService = inject(UserService);
   private lastUserIdClicked = '';
   protected users$ = this.userService.getUsers();
 
+  refreshUsers() {
+    this.users$ = this.userService
+      .getUsers()
+      .pipe(
+        catchError(error => {
+          console.error(error);
+          return EMPTY;
+        })
+      )
+  }
+
   onFileSelected(event: any) {
     const selectedFile = event.target.files as FileList;
-    
+
     if (selectedFile.length === 0) {
       return
     };
@@ -26,11 +38,13 @@ export class LoginPageComponent {
     const file = selectedFile[0];
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
-    
+
     reader.onloadend = () => {
       const fileInBytes = reader.result as ArrayBuffer;
       this.userService.uploadUserImage(this.lastUserIdClicked, fileInBytes)
-        .subscribe(() => console.log("DEU BOM!"));
+        .subscribe(() => {
+          this.refreshUsers();
+        });
     }
   }
 

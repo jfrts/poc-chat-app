@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace ChatAPI.Users;
 
@@ -41,13 +42,13 @@ public class UserController : ControllerBase
     [HttpGet("{userId}/image")]
     public IActionResult getUserImage(Guid userId)
     {
-        var user = UserFakeDb.users.Find(user => user.Id == userId);
+        var userImage = UserFakeDb.userImages.FirstOrDefault(image => image.UserId == userId);
         
-        if (user is null)
+        if (userImage is null)
         {
             return NotFound();
         }
 
-        return Ok(user.ProfilePicture);
+        return File(userImage.Image, MediaTypeNames.Image.Jpeg);
     }
 }

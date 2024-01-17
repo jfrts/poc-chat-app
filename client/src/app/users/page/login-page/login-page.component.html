@@ -4,16 +4,16 @@
         <h3>Escolha um usuário.</h3>
     </div>
     <ul>
-        @for (user of users$ | async; track user.id;) {
+        @for (userData of users$ | async; track userData.user.id;) {
         <li class="user">
             <div class="personal-info">
                 <div class="avatar">
-                    <img [src]="'./assets/images/avatars/' + user.profilePicture"
-                        [alt]="'Foto de perfil de ' + user.name">
+                    <img [src]="userData.imageUrl || './assets/images/avatars/default.png'"
+                        [alt]="'Foto de perfil de ' + userData.user.name">
                 </div>
-                <span>{{ user.name }}</span>
+                <span>{{ userData.user.name }}</span>
             </div>
-            <button (click)="onImageButtonClicked(user.id)">
+            <button (click)="onImageButtonClicked(userData.user.id)">
                 <img src="./assets/images/icons/update-image.svg" alt="Atualizar Imagem">
             </button>
         </li>
