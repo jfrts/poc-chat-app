@@ -56,6 +56,11 @@ export class UserService {
     const userImageEndpoint = `${this.usersEndpoint}/${userId}/image`;
     return this.http.put(userImageEndpoint, formData);
   }
+
+  public login(userId: string) {
+    const authEndPoint = `${environment.urlApi}/auth`;
+    return this.http.post(authEndPoint, { userId });
+  }
 }
 
 type UserData = {

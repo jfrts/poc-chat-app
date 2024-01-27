@@ -5,7 +5,7 @@
     </div>
     <ul>
         @for (userData of users$ | async; track userData.user.id;) {
-        <li class="user">
+        <li (click)="onClickUser(userData.user.id)" class="user">
             <div class="personal-info">
                 <div class="avatar">
                     <img [src]="userData.imageUrl || './assets/images/avatars/default.png'"
@@ -13,7 +13,7 @@
                 </div>
                 <span>{{ userData.user.name }}</span>
             </div>
-            <button (click)="onImageButtonClicked(userData.user.id)">
+            <button (click)="onImageButtonClicked($event, userData.user.id)">
                 <img src="./assets/images/icons/update-image.svg" alt="Atualizar Imagem">
             </button>
         </li>

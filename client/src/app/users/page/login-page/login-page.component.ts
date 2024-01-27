@@ -48,8 +48,13 @@ export class LoginPageComponent {
     }
   }
 
-  onImageButtonClicked(userId: string) {
+  onImageButtonClicked(event: Event, userId: string) {
+    event.stopPropagation();
     this.lastUserIdClicked = userId;
     this.inputFile.nativeElement.click();
+  }
+
+  onClickUser(userId: string) {
+    this.userService.login(userId).subscribe(console.log);
   }
 }
