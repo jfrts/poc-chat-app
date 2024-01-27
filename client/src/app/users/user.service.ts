@@ -1,9 +1,10 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable, inject } from "@angular/core";
+import { Injectable, effect, inject, signal } from "@angular/core";
 import { Observable, catchError, forkJoin, map, of, switchMap, tap } from "rxjs";
 import { environment } from "../../environments/environment";
-import { User } from "./user.model";
 import { LocalDB } from "../local-db/local-db";
+import { UserStorageInfo } from "./user-storage-info.model";
+import { User } from "./user.model";
 
 @Injectable({
   providedIn: "root"
@@ -11,6 +12,13 @@ import { LocalDB } from "../local-db/local-db";
 export class UserService {
   private http = inject(HttpClient);
   private usersEndpoint = `${environment.urlApi}/users`;
+  private userInfo = signal<UserStorageInfo | null>(null);
+
+  constructor() {
+    effect(() => {
+      window.localStorage.setItem("chat-userInfo", JSON.stringify(this.userInfo()));
+    })
+  }
 
   public getUsers(): Observable<UserData[]> {
     const users = this.http.get<User[]>(this.usersEndpoint);
@@ -57,9 +65,13 @@ export class UserService {
     return this.http.put(userImageEndpoint, formData);
   }
 
-  public login(userId: string) {
+  public setCurrentUser(user: UserStorageInfo) {
+    this.userInfo.set(user);
+  }
+
+  public login(userId: string): Observable<UserStorageInfo> {
     const authEndPoint = `${environment.urlApi}/auth`;
-    return this.http.post(authEndPoint, { userId });
+    return this.http.post<UserStorageInfo>(authEndPoint, { userId });
   }
 }
 

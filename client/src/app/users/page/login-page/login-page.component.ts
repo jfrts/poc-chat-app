@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
-import { EMPTY, catchError, of } from 'rxjs';
+import { EMPTY, catchError } from 'rxjs';
+import { User } from '../../user.model';
 import { UserService } from '../../user.service';
 
 @Component({
@@ -54,7 +55,13 @@ export class LoginPageComponent {
     this.inputFile.nativeElement.click();
   }
 
-  onClickUser(userId: string) {
-    this.userService.login(userId).subscribe(console.log);
+  onClickUser(user: User) {
+    this.userService.login(user.id)
+      .subscribe(response => {
+        this.userService.setCurrentUser({
+          ...user,
+          token: response.token
+        });
+      });
   }
 }

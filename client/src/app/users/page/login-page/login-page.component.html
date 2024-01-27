@@ -5,7 +5,7 @@
     </div>
     <ul>
         @for (userData of users$ | async; track userData.user.id;) {
-        <li (click)="onClickUser(userData.user.id)" class="user">
+        <li (click)="onClickUser(userData.user)" class="user">
             <div class="personal-info">
                 <div class="avatar">
                     <img [src]="userData.imageUrl || './assets/images/avatars/default.png'"
