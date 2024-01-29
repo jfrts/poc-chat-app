@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, effect, inject, signal } from "@angular/core";
+import { Router } from "@angular/router";
 import { Observable, catchError, forkJoin, map, of, switchMap, tap } from "rxjs";
 import { environment } from "../../environments/environment";
 import { LocalDB } from "../local-db/local-db";
@@ -11,6 +12,7 @@ import { User } from "./user.model";
 })
 export class UserService {
   private http = inject(HttpClient);
+  private router = inject(Router);
   private usersEndpoint = `${environment.urlApi}/users`;
   private userInfo = signal<UserStorageInfo | null>(null);
 
@@ -57,6 +59,10 @@ export class UserService {
     return this.http.get(userImageEndpoint, { responseType: "blob" });
   }
 
+  public getUserInfoSignal() {
+    return this.userInfo.asReadonly();
+  }
+
   public uploadUserImage(userId: string, image: ArrayBuffer) {
     const blobImage = new Blob([image]);
     const formData = new FormData();
@@ -72,6 +78,27 @@ export class UserService {
   public login(userId: string): Observable<UserStorageInfo> {
     const authEndPoint = `${environment.urlApi}/auth`;
     return this.http.post<UserStorageInfo>(authEndPoint, { userId });
+  }
+
+  public logout(): void {
+    this.userInfo.set(null);
+    window.localStorage.removeItem("chat-userInfo")
+    this.router.navigate(["login"]);
+  }
+
+  public isUserLogged(): boolean {
+    return !!this.userInfo();
+  }
+
+  public trySyncLocalStorage(): void {
+    const localStorageData = localStorage.getItem("chat-userInfo");
+
+    if (!localStorageData) {
+      return;
+    }
+
+    const userData: UserStorageInfo = JSON.parse(localStorageData);
+    this.userInfo.set(userData);
   }
 }
 

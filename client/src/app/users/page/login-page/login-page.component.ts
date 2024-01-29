@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
-import { EMPTY, catchError } from 'rxjs';
+import { Router } from '@angular/router';
+import { EMPTY, catchError, take } from 'rxjs';
 import { User } from '../../user.model';
 import { UserService } from '../../user.service';
 
@@ -15,6 +16,7 @@ export class LoginPageComponent {
 
   @ViewChild('upload_image_input', { static: true, read: ElementRef }) private inputFile!: ElementRef;
   private userService = inject(UserService);
+  private router = inject(Router);
   private lastUserIdClicked = '';
   protected users$ = this.userService.getUsers();
 
@@ -57,11 +59,14 @@ export class LoginPageComponent {
 
   onClickUser(user: User) {
     this.userService.login(user.id)
+      .pipe(take(1))
       .subscribe(response => {
         this.userService.setCurrentUser({
           ...user,
           token: response.token
         });
+
+        this.router.navigate(["chat"]);
       });
   }
 }
