@@ -1,0 +1,69 @@
+@import "style-guide";
+
+.user-section {
+    align-items: center;
+    border-bottom: solid 1px #dee0e2;
+    display: grid;
+    grid-template-columns: 1fr 2rem;
+    padding: 0 2rem;
+
+    .new-chat-button {
+        cursor: pointer;
+        max-width: 2rem;
+        transition: all 300ms ease;
+
+        &:hover {
+            filter: opacity(0.8);
+        }
+    }
+}
+
+.contacts-area {
+    background-color: #FBFEFC;
+    border-right: solid 1px #dee0e2;
+    height: 100%;
+
+    .contacts-list {
+        .contact {
+            align-items: center;
+            display: flex;
+            gap: 1.6rem;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 150ms ease-in;
+
+            &:hover {
+                background-color: darken($color: #FBFEFC, $amount: 3);
+            }
+
+            .avatar {
+                border-radius: 50%;
+                height: 4.4rem;
+                overflow: hidden;
+                width: 4.4rem;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    object-position: center center;
+                }
+            }
+
+            span {
+                font-size: 2.2rem;
+            }
+
+            p {
+                width: 20rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: $font-2;
+                letter-spacing: -0.5px;
+                font-family: $font-chat;
+                font-size: 1.4rem;
+            }
+        }
+    }
+}

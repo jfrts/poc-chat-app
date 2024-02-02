@@ -1,0 +1,33 @@
+@import "style-guide";
+
+.chat-area {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 7.28rem 1fr 8rem;
+    height: 100%;
+
+    .user {
+        padding: 0 4rem;
+        border-bottom: solid 1px #dee0e2;
+    }
+
+    .messages,
+    .write-message {
+        padding: 0 4rem;
+    }
+
+    .write-message {
+        align-items: center;
+        display: flex;
+        width: 100%;
+
+        input {
+            background-color: #FBFEFC;
+            border: 1px solid #dee0e2;
+            border-radius: 5.6rem;
+            color: $shade;
+            padding: 1.6rem 2rem;
+            width: 100%;
+        }
+    }
+}

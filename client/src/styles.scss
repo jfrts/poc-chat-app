@@ -32,8 +32,8 @@ html {
 }
 
 body {
-    background-color: $background-3;
-    color: $font;
+    background-color: #FFFFFF;
+    color: $shade;
     font-size: 1.6rem;
 }
 
@@ -41,8 +41,4 @@ body {
     margin: 0 auto;
     max-width: $grid-size-desktop;
     width: 100%;
-}
-
-.red {
-    background-color: red;
 }
