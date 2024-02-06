@@ -1,6 +1,6 @@
 import Dexie from "dexie";
 import { LocalUserImage } from "./local-user-image";
-import { from } from "rxjs";
+import { from, map } from "rxjs";
 
 export class LocalDB {
     private localDB = new Dexie("chat-app");
@@ -18,5 +18,12 @@ export class LocalDB {
 
     addUsers(users: LocalUserImage[]) {
         return from(this.userTable.bulkPut(users));
+    }
+
+    getUserImage(userId: string) {
+        return from(this.userTable.get(userId))
+            .pipe(
+                map(localUserImageBlob => localUserImageBlob!.imageBlob)
+            );
     }
 }

@@ -15,6 +15,7 @@ export class UserService {
   private router = inject(Router);
   private usersEndpoint = `${environment.urlApi}/users`;
   private userInfo = signal<UserStorageInfo | null>(null);
+  private localDb = new LocalDB();
 
   constructor() {
     effect(() => {
@@ -99,6 +100,13 @@ export class UserService {
 
     const userData: UserStorageInfo = JSON.parse(localStorageData);
     this.userInfo.set(userData);
+  }
+
+  getCurrentUserImage() {
+    return this.localDb.getUserImage(this.userInfo()!.id)
+      .pipe(
+        map(blob => !!blob ? URL.createObjectURL(blob) : "")
+      );
   }
 }
 

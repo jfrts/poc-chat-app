@@ -1,8 +1,8 @@
 <div class="user">
     <div class="avatar">
-        <img src="../../../../assets/images/avatars/user3.png" alt="">
+        <img [src]="userImageURL$ | async" alt="">
     </div>
     <span>
-        Emma Ruth
+        {{ userInfo()!.name }}
     </span>
 </div>
