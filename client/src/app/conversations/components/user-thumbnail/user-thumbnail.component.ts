@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { UserService } from '../../../users/user.service';
 import { AsyncPipe } from '@angular/common';
+import { UserImage } from '../../../users/user-image.model';
 
 @Component({
   selector: 'app-user-thumbnail',
@@ -13,4 +14,7 @@ export class UserThumbnailComponent {
   private _userService = inject(UserService);
   protected userInfo = this._userService.getUserInfoSignal();
   protected userImageURL$ = this._userService.getCurrentUserImage();
+
+  @Input({ required: true })
+  user!: UserImage;
 }

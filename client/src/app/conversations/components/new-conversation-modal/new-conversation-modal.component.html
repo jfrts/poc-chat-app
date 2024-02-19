@@ -1,9 +1,8 @@
 <div class="new-chat-container">
     <h2>New chat</h2>
     <div class="contacts-list">
-        <app-user-thumbnail />
-        <app-user-thumbnail />
-        <app-user-thumbnail />
-        <app-user-thumbnail />
+        @for (user of users$ | async; track user.id) {
+            <app-user-thumbnail [user]="user" />
+        }
     </div>
 </div>

@@ -1,8 +1,12 @@
 <div class="user">
     <div class="avatar">
-        <img [src]="userImageURL$ | async" alt="">
+        @if (user.imageUrl) {
+            <img [src]="user.imageUrl" alt="">
+        } @else {
+            <img src="../../../../assets/images/avatars/default.png" alt="">
+        }
     </div>
     <span>
-        {{ userInfo()!.name }}
+        {{ user.name }}
     </span>
 </div>

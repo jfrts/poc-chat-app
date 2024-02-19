@@ -6,6 +6,7 @@ import { environment } from "../../environments/environment";
 import { LocalDB } from "../local-db/local-db";
 import { UserStorageInfo } from "./user-storage-info.model";
 import { User } from "./user.model";
+import { UserImage } from "./user-image.model";
 
 @Injectable({
   providedIn: "root"
@@ -110,10 +111,14 @@ export class UserService {
   }
 
   getLocalUsers() {
-    // return this.localDb.getUsers()
-    //   .pipe(
-    //     map(localUsers => )
-    //   );
+    return this.localDb.getUsers()
+      .pipe(
+        map(localUsers => localUsers.map(localUser => ({
+          id: localUser.id,
+          name: localUser.name,
+          imageUrl: localUser.imageBlob && URL.createObjectURL(localUser.imageBlob)
+        }) as UserImage))
+      );
   }
 }
 

@@ -1,6 +1,6 @@
 <section class="contacts-area">
     <section class="user-section">
-        <app-user-thumbnail />
+        <app-user-thumbnail [user]="loggedUser" />
         <div>
             <img (click)="toggleModal()" src="../../../../assets/images/icons/new-chat.svg" alt="New Chat" class="new-chat-button">
             @if (isModalOpen) {
