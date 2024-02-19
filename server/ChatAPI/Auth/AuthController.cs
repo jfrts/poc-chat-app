@@ -1,5 +1,6 @@
 ﻿using ChatAPI.Users;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -10,6 +11,13 @@ namespace ChatAPI.Auth;
 [ApiController, Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
+    private readonly JwtSettingsOptions _jwtSettings;
+
+    public AuthController(JwtSettingsOptions jwtSettingsOptions)
+    {
+        this._jwtSettings = jwtSettingsOptions;
+    }
+
     [HttpPost]
     public IActionResult Login(AuthLoginRequest request)
     {
@@ -18,7 +26,8 @@ public class AuthController : ControllerBase
             return NotFound("Usuário não encontrado");
         }
 
-        var byteSecret = Encoding.UTF8.GetBytes(AuthSettings.JwtSecret).ToArray();
+        var jwtSecret = this._jwtSettings.Secret;
+        var byteSecret = Encoding.UTF8.GetBytes(jwtSecret!).ToArray();
 
         var secretKey = new SigningCredentials(
             new SymmetricSecurityKey(byteSecret),
@@ -37,10 +46,6 @@ public class AuthController : ControllerBase
 
         var token = new JwtSecurityTokenHandler().WriteToken( securityToken );
 
-        return Ok(new
-        {
-            request.userId,
-            token
-        });
+        return Ok(new { request.userId, token});
     }
 }

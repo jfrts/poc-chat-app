@@ -108,6 +108,13 @@ export class UserService {
         map(blob => !!blob ? URL.createObjectURL(blob) : "")
       );
   }
+
+  getLocalUsers() {
+    // return this.localDb.getUsers()
+    //   .pipe(
+    //     map(localUsers => )
+    //   );
+  }
 }
 
 type UserData = {

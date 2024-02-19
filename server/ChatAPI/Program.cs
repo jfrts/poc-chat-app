@@ -1,5 +1,6 @@
 using ChatAPI.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -22,7 +23,8 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 }));
 
 builder.Services
-    .AddAuthentication(options => {
+    .AddAuthentication(options =>
+    {
         options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
@@ -40,6 +42,12 @@ builder.Services
             IssuerSigningKey = secretKey
         };
     });
+
+builder.Services.Configure<JwtSettingsOptions>(
+    builder.Configuration.GetRequiredSection(JwtSettingsOptions.SessionName));
+
+builder.Services.AddSingleton(provider =>
+    provider.GetRequiredService<IOptions<JwtSettingsOptions>>().Value);
 
 var app = builder.Build();
 
